@@ -41,6 +41,7 @@ pipeline {
                         }
                     }
                     steps {
+                        sh 'npm ci'
                         sh 'npx playwright test'
                     }
                 }
@@ -58,9 +59,10 @@ pipeline {
                 echo 'Mock deployment was successful!'
             }
         }
+
         stage('e2e') {
             agent {
-                    docker {
+                docker {
                     image 'mcr.microsoft.com/playwright:v1.56.1-jammy'
                     reuseNode true
                 }
