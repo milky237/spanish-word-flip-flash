@@ -9,7 +9,7 @@ pipeline {
         stage('build') {
             agent {
                 docker {
-                    image 'node:24-alpine'
+                    image 'node:22-alpine'
                 }
             }
             steps {
@@ -23,12 +23,13 @@ pipeline {
                 stage('unit tests') {
                     agent {
                         docker {
-                            image 'node:24-alpine'
+                            image 'node:22-alpine'
                             reuseNode true
                         }
                     }
                     steps {
                         // Unit tests with Vitest
+                        sh 'npm ci'
                         sh 'npx vitest run --reporter=verbose'
                     }
                 }
